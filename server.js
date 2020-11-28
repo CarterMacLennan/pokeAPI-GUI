@@ -11,12 +11,9 @@ app.use(express.json());
 app.use(favicon(__dirname + '/client/public/favicon.ico'));
 app.use(express.static(path.join(__dirname, '/client/public')));
 
-if (process.env.NODE_ENV === 'production') {
-    app.get('/*', function(req, res) {
-        res.sendFile(path.join(__dirname, '/client/build', "index.html"));
-    });
-    
-    const port = process.env.PORT || 5000;
+app.get('/*', function(req, res) {
+    res.sendFile(path.join(__dirname, '/client/build', "index.html"));
+});
 
-    app.listen(port, () => console.log(`Server now running on port ${port}!`));
-}
+const port = process.env.PORT || 5000;
+app.listen(port, () => console.log(`Server now running on port ${port}!`));
