@@ -1,13 +1,8 @@
 const express = require('express'),
     favicon = require("serve-favicon"),
-    mongoose = require('mongoose'),
     logger = require("morgan");
     
-mongoose.connect(process.env.DB_URI || require('./config').db.uri, {
-    useNewUrlParser: true
-});
-mongoose.set('useCreateIndex', true);
-mongoose.set('useFindAndModify', false);
+
 
 const app = express();
 
