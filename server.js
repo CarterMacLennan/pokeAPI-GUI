@@ -13,7 +13,7 @@ const app = express();
 
 app.use(logger("dev"));
 app.use(express.json());
-app.use(favicon(__dirname + '/../client/build/favicon.ico'));
+app.use(favicon(__dirname + '/../client/public/favicon.ico'));
 app.use(express.static(path.join(__dirname, '/../client/public')));
 
 if (process.env.NODE_ENV === 'production') {
