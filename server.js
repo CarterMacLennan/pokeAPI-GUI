@@ -8,7 +8,7 @@ const app = express();
 app.use(logger("dev"));
 app.use(express.json());
 app.use(favicon(__dirname + '/client/public/favicon.ico'));
-app.use(express.static(path.join(__dirname, '/client/public')));
+app.use(express.static(path.join(__dirname, '/client/build')));
 
 app.get('/*', function(req, res) {
     res.sendFile(path.join(__dirname, '/client/build', "index.html"));
