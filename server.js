@@ -14,6 +14,8 @@ const app = express();
 app.use(bodyParser.json());
 app.use(favicon(__dirname + '../client/public/favicon.ico'));
 
+console.log(__dirname);
+
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '../client/build')));
     app.get('*', function(req, res) {
