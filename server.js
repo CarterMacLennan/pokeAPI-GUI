@@ -1,12 +1,11 @@
 const path = require('path'),
     express = require('express'),
-    favicon = require("serve-favicon"),
-    logger = require("morgan");
+    favicon = require("serve-favicon");
     
 const app = express();
 
-app.use(logger("dev"));
 app.use(express.json());
+
 app.use(favicon(__dirname + '/client/public/favicon.ico'));
 app.use(express.static(path.join(__dirname, '/client/build')));
 
@@ -14,5 +13,4 @@ app.get('/*', function(req, res) {
     res.sendFile(path.join(__dirname, '/client/build', "index.html"));
 });
 
-const port = process.env.PORT || 5000;
-app.listen(port, () => console.log(`Server now running on port ${port}!`));
+app.listen(process.env.PORT || 5000, () => console.log(`Server now running`));
