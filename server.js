@@ -1,4 +1,5 @@
 const express = require('express'),
+    favicon = require('express-favicon'),
     mongoose = require('mongoose'),
     bodyParser = require('body-parser'),
     port = process.env.PORT || 5000;
@@ -11,6 +12,7 @@ mongoose.set('useFindAndModify', false);
 
 const app = express();
 app.use(bodyParser.json());
+app.use(favicon(__dirname + '../client/public/favicon.ico'));
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '../client/build')));
