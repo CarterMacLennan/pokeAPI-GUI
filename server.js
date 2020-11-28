@@ -2,8 +2,6 @@ const express = require('express'),
     favicon = require("serve-favicon"),
     logger = require("morgan");
     
-
-
 const app = express();
 
 app.use(logger("dev"));
