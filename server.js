@@ -27,8 +27,4 @@ const userSchema = new mongoose.Schema ({
 
 const User = new mongoose.model("User", userSchema);
 
-app.get('/*', function(req, res) {
-    res.sendFile(path.join(__dirname, '/client/build', "index.html"));
-});
-
 app.listen(process.env.PORT || 5000, () => console.log(`Server now running`));
