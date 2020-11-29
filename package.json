@@ -1,14 +1,14 @@
 {
-  "name": "pokeAPI-GUI",
+  "name": "pokemon-api-gui",
   "version": "1.0.0",
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "install-all": "concurrently \"npm install\" \"cd client && npm install\"",
+    "dev": "concurrently \"nodemon server.js\" \"cd client && npm run startLocal\"",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "client": "cd client && serve -s build",
     "server": "nodemon server.js",
-    "dev": "concurrently \"nodemon server.js\" \"cd client && npm run start\"",
     "build": "cd client && react-scripts build",
     "start": "node server.js",
     "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
