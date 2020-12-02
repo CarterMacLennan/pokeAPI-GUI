@@ -74,6 +74,7 @@ html, body{
 .auth-container{
     position: relative;
     top: 15vh;
+    text-align: center;
 }
 
 .profile-img{
