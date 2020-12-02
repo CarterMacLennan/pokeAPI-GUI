@@ -15,13 +15,13 @@ export default class Navigation extends React.Component{
             <div className="collapse navbar-collapse navbar-dark" id="navbarNav">
                 <ul className="navbar-nav">
                     <li className="nav-item active">
-                        <a className="nav-link" href="/">Home <span className="sr-only">(current)</span></a>
+                        <a className="nav-link" href="/">Home<span className="sr-only">(current)</span></a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link pull-left" href="/login">Login</a>
+                        <a className="nav-link" href="/login">Login</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link disabled pull-left" href="#">Favourites</a>
+                        <a className="nav-link" href="/favourites">Favourites</a>
                     </li>
                 </ul>
             </div>

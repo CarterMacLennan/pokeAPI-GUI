@@ -1,6 +1,5 @@
 import React from "react";
 import Bullbasaur from "./images/bullbasaur.png";
-import Heart from "./images/heart.png";
 
 export default class Navigation extends React.Component{
     constructor(props){
@@ -13,7 +12,7 @@ export default class Navigation extends React.Component{
                 <div className="row justify-content-center">
                     <div className="auth-container col-xl-5 col-sm-6">
                         <div className="account-wall">
-                            <img className="profile-img" src={Bullbasaur} alt="Bullbasaur"/>
+                            <img className="bullbasaur-img" src={Bullbasaur} alt="Bullbasaur"/>
                             <p>Login to save your favourite Pokemon!</p>
                             <form className="form-login form-block">
                                 <input type="text" className="form-control" placeholder="Email" required autofocus/>
