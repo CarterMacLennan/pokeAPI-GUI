@@ -1,3 +1,17 @@
 html, body{
     background-color: #003A70;
 }
+
+.main-search input.form-control[type=text]:focus:not([readonly]) {
+    border-bottom: 1px solid yellow;
+    box-shadow: 0 1px 0 0 yellow;
+    color: white;
+}
+
+.main-search .fas{
+  color: white;
+}
+
+.main-search input, .main-search ::placeholder{
+    color: white;
+}
