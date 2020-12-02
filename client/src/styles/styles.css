@@ -1,20 +1,28 @@
 /* General */
-html, body{
+html, body, nav{
     background-color: #003A70;
 }
 
+.jumbotron{
+    background-color: #222831;
+    color: white;
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+.header-item{
+    padding: 16px;
+}
+
 /* Landing Page Search */
-.main-search{
-    top: 25vh;
+.main-search input{
+    position: relative;
+    top: 5vh;
 }
 
 .main-search input.form-control[type=text]:focus:not([readonly]) {
     border-bottom: 1px solid yellow;
     box-shadow: 0 1px 0 0 yellow;
-    color: white;
-}
-
-.main-search .fas{
     color: white;
 }
 
