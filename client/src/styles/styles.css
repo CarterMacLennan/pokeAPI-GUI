@@ -1,8 +1,13 @@
 /* General */
-html, body, nav{
+html, body{
     background-color: #003A70;
 }
 
+nav{
+    background-color: #222831;
+}
+
+/* Header */
 .jumbotron{
     background-color: #222831;
     color: white;
@@ -60,7 +65,7 @@ html, body, nav{
 /* Log In Form */
 .auth-container{
     position: relative;
-    top: 15vh;
+    top: 10vh;
     text-align: center;
 }
 
