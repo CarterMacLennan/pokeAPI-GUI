@@ -9,9 +9,16 @@ export default class LandingPage extends React.Component{
     render() {
         return (
             <div>
-                <form className="justify-content-center md-form form-inline main-search">
-                    <img src={Pikachu} className="img-pikachu"/>
-                    <input className="form-control form-control-lg w-50" type="text" placeholder="Search" aria-label="Search"/>
+                <form className="row md-form form-inline main-search">
+                    <div className="col-1"/>
+                    <div className="col-2">
+                        <img src={Pikachu} className="img-pikachu"/>
+                    </div>
+                    <div className="col-1"/>
+                    <div className="col-7">
+                        <input className="form-control form-control-lg w-100" type="text" placeholder="Search" aria-label="Search"/>
+                    </div>   
+                    <div className="col-1"/>
                 </form>
             </div>
         );
