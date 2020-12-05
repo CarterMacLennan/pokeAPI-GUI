@@ -28,11 +28,6 @@ export default class LandingPage extends React.Component{
                         <input className="form-control form-control-lg w-100" type="text" placeholder="Search" aria-label="Search"/>
                     </div>   
                 </form>
-                <div id="content-wrap">
-                    <footer>
-                        <div>Pikachu Icon made by <a href="https://www.flaticon.com/authors/roundicons-freebies" title="Roundicons Freebies">Roundicons Freebies</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-                    </footer>
-                </div>
             </div>
         );
     }
