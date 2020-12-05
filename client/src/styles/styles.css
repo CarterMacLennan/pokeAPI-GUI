@@ -154,3 +154,32 @@ footer a:hover {
     color:#3366cc;
     text-decoration:none;
 }
+
+.centered{
+    height: 100vh; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.results {
+    margin: 128px 32px;
+}
+
+.card{
+    margin: 16px 0;
+}
+
+.card-title{
+    text-decoration: ;
+}
+
+.card-body{
+    padding: 0 16px;
+}
+
+.card-img-top{
+    width: 220px;
+    margin: 0 auto;
+    padding: 25px;
+}

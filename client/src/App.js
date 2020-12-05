@@ -15,7 +15,7 @@ export default function App() {
           <Route path="/login" component={Auth} exact />
           <Route path="/favourites" component={Favourites} exact />
       </Switch>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
