@@ -8,44 +8,61 @@ export default class LandingPage extends React.Component{
         super(props);
 
         this.state = {
-            pokemon: null,
-            loading: false,
-        }
-    }
-    
-    async componentDidMount() {
-        this.setState({loading : true});
-        try {
-            let pokemon = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=151");
-            this.setState({loading : false, pokemon: pokemon.data.results});
-            console.log([pokemon.data.results]);
-        } catch(err) {
-            console.log(err);
+            pokemon: [],
+            isLoading: false,
+            enter: false,
+            search: "",
         }
     }
 
+    handleSearchRequest = async (e) => {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+            let {data:{results}} = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=386");
+            let pokeNames = results.map(elem => elem.name);
+
+            let filteredNames = pokeNames.filter(name => name.includes(e.target.value));
+            this.loadPokemon(filteredNames);
+        }
+    }
+
+    loadPokemon = async (filteredNames) => {
+        let filteredPokemon =[];
+        this.setState({isLoading: true});
+
+        await Promise.all(filteredNames.map(pokeName =>
+            axios.get('https://pokeapi.co/api/v2/pokemon/' + pokeName)
+            .then(res => { filteredPokemon.push(res.data);})
+        ));
+
+        this.setState({pokemon: filteredPokemon, isLoading: false});
+    }
+
     getResults = () => {
-        if(this.state.loading !== true && this.state.pokemon !== null){
-            let pokemon = this.state.pokemon;
-            console.log(pokemon);
-            return (
-                <div className="container">
-                    <div className="results row">
-                        {(this.state.pokemon).map((data, index) => 
-                            <div classkey={index} className="col-lg-3 col-md-4">
-                                <Card pokemon={data} />
-                            </div>
-                        )}
-                    </div>
-                </div>
-            );
-        } 
-        else {
+        if(this.state.isLoading){
             return (
                 <div className = "centered">
                     <div className = "spinner-border spinner-border-xl text-light"></div>
                 </div>
             );
+        } 
+        else if (this.state.pokemon !=null){
+            (this.state.pokemon).forEach(e => console.log(e));
+            return (
+                <div className="container">
+                    <div className="results row">
+                        {(this.state.pokemon).map((data, index) => {
+                            return(
+                                <div classkey={index} className="col-lg-3 col-md-4">
+                                    <Card pokemon={data} />
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            );
+        }
+        else {
+            return null;
         }
     }
 
@@ -56,7 +73,7 @@ export default class LandingPage extends React.Component{
                     <div className="container">
                         <div className="row">
                             <div className="header-item col-2">
-                                <img src={Pikachu} className="img-pikachu"/>
+                                <img src={Pikachu} className="img-pikachu" alt="Pikachu"/>
                             </div>
                             <div className="col-1"/>
                             <div className="header-item col-9">
@@ -66,11 +83,11 @@ export default class LandingPage extends React.Component{
                         </div>
                     </div>
                 </div>
-                <form className="row md-form justify-content-center form-inline main-search">
+                <div className="row md-form justify-content-center form-inline main-search">
                     <div className=" col-lg-8 col-sm-9 col-10">
-                        <input className="form-control form-control-lg w-100" type="text" placeholder="Search" aria-label="Search"/>
+                        <input type="text" className="form-control form-control-lg w-100" onKeyDown={this.handleSearchRequest} placeholder="Search"/>
                     </div>   
-                </form>
+                </div>
                 {this.getResults()}
             </div>
         );
