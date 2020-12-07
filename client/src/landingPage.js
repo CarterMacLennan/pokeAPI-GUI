@@ -48,16 +48,14 @@ export default class LandingPage extends React.Component{
         else if (this.state.pokemon !=null){
             (this.state.pokemon).forEach(e => console.log(e));
             return (
-                <div className="container">
-                    <div className="results row">
-                        {(this.state.pokemon).map((data, index) => {
-                            return(
-                                <div classkey={index} className="col-lg-3 col-md-4">
-                                    <Card pokemon={data} />
-                                </div>
-                            );
-                        })}
-                    </div>
+                <div className="results row">
+                    {(this.state.pokemon).map((data, index) => {
+                        return(
+                            <div classkey={index} className="d-flex justify-content-center col-xl-3 col-lg-4 col-md-6">
+                                <Card pokemon={data} />
+                            </div>
+                        );
+                    })}
                 </div>
             );
         }
