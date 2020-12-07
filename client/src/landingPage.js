@@ -16,11 +16,11 @@ export default class LandingPage extends React.Component{
     }
 
     handleSearchRequest = async (e) => {
-        if (e.key === 'Enter' || e.keyCode === 13) {
+        if (e.key === 'Enter' || e.keyCode === 13 || e.keyCode == 9) {
             let {data:{results}} = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=386");
             let pokeNames = results.map(elem => elem.name);
 
-            let filteredNames = pokeNames.filter(name => name.includes(e.target.value));
+            let filteredNames = pokeNames.filter(name => name.includes(e.target.value.toLowerCase()));
             this.loadPokemon(filteredNames);
         }
     }
@@ -46,7 +46,6 @@ export default class LandingPage extends React.Component{
             );
         } 
         else if (this.state.pokemon !=null){
-            (this.state.pokemon).forEach(e => console.log(e));
             return (
                 <div className="results row">
                     {(this.state.pokemon).map((data, index) => {
