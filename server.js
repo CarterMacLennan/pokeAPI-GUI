@@ -1,10 +1,9 @@
 const path = require('path'),
     express = require('express'),
-    favicon = require("serve-favicon"),
     mongoose = require("mongoose"),
-    bodyParser = require("body-parser"),
-    bcrypt = require("bcrypt"), 
-    saltRounds = 10;
+    session = require ("express-session"),
+    passport = require("passport"),
+    passportLocalMongoose = require("passport-local-mongoose");
 
 const db = process.env.DB_URI || "mongodb://localhost:27017/pokeGUI";
 const port = process.env.PORT || 5000;
@@ -12,6 +11,14 @@ const port = process.env.PORT || 5000;
 const app = express();
 app.use(express.urlencoded());
 app.use(express.json());
+app.use(session({
+    secret: "Our little secret.",
+    resave: false,
+    saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 mongoose.connect( db, {useNewUrlParser: true ,useUnifiedTopology: true }, (err) => {
     if (err) {
@@ -20,57 +27,65 @@ mongoose.connect( db, {useNewUrlParser: true ,useUnifiedTopology: true }, (err) 
         console.log("Connected to MongoDB...");
     }
 });
+mongoose.set("useCreateIndex", true);
 
 const userSchema = new mongoose.Schema ({
     email: String,
     password: String,
 });
+userSchema.plugin(passportLocalMongoose);
 
 const User = new mongoose.model("User", userSchema);
 
-app.post("/api/register", async (req,res) => {
-    console.log([req.body.username, req.body.password]);
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
-    bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
-        const newUser = new User({
-            email: req.body.username,
-            password: hash
-        });
-        newUser.save( error => {
-            if (error){
-                console.log(error);
-                res.send(error);
-            }
-            else {
-                console.log("true");
-                res.send(true);
-            }
-        });
-    });
+app.get("/favourites", (req, res) => {
+    if (req.isAuthenticated()) {
+        res.render("secrets");
+    }
+    else {
+        res.redirect("/login");
+    }
+});
+
+app.get("/logout", (req, res) => {
+    req.logout();
+});
+
+app.post("/api/register", async (req,res) => {
+    User.register({username: req.body.username}, req.body.password, (err, user) => {
+        if (err) {
+            console.log(err);
+            res.redirect("/register");
+        }
+        else {
+            passport.authenticate("local")(req, res, () => {
+                console.log(req.user);
+                res.redirect("/secrets");
+            });
+        }
+    })
 });
 
 app.post("/api/login", (req, res) => {
-    User.findOne({email: req.body.username}, (err, user) => {
+    const user = new User( {
+        username: req.body.username,
+        password: req.body.password
+    });
+
+    req.login(user, (err) => {
         if (err) {
             console.log(err);
         }
-        else if (user){
-            bcrypt.compare(req.body.password, user.password, (error, result) => {
-                if (result) {
-                    console.log("Valid!");
-                    res.send("Valid!");
-                }
-                else {
-                    console.log("Invalid Password");
-                    res.send("Invalid Password");
-                }
-            });
-        }
         else {
-            console.log("Invalid UserName");
-            res.send("Invalid UserName");
-        }
-    })
+            passport.authenticate("local")(req, res, () => {
+                res.redirect("/secrets");
+                console.log(req.user);
+            });
+        }        
+    });
 });
 
 if (process.env.NODE_ENV === "production") {
