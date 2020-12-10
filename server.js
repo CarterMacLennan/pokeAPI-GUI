@@ -57,13 +57,11 @@ app.get("/logout", (req, res) => {
 app.post("/api/register", async (req,res) => {
     User.register({username: req.body.username}, req.body.password, (err, user) => {
         if (err) {
-            console.log(err);
-            res.redirect("/register");
+            res.send(err);
         }
         else {
             passport.authenticate("local")(req, res, () => {
-                console.log(req.user);
-                res.redirect("/secrets");
+                res.send(true);
             });
         }
     })
@@ -77,12 +75,11 @@ app.post("/api/login", (req, res) => {
 
     req.login(user, (err) => {
         if (err) {
-            console.log(err);
+            res.send(err);
         }
         else {
             passport.authenticate("local")(req, res, () => {
-                res.redirect("/secrets");
-                console.log(req.user);
+                res.send(true);
             });
         }        
     });
