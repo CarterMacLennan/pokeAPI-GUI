@@ -55,12 +55,17 @@ app.get("/logout", (req, res) => {
 });
 
 app.post("/api/register", async (req,res) => {
+    console.log("registering...");
     User.register({username: req.body.username}, req.body.password, (err, user) => {
         if (err) {
+            console.log("ERROR:");
+            console.log(err);
             res.send(err);
         }
         else {
+            console.log("authenticating...");
             passport.authenticate("local")(req, res, () => {
+                console.log("TRUE!");
                 res.send(true);
             });
         }

@@ -3,7 +3,6 @@ import Heart from "./images/heart.png";
 import axios from "axios";
 import qs from "query-string";
 import {Link} from "react-router-dom";
-import { useHistory } from 'react-router-dom';
 
 export default class Login extends React.Component{
     constructor(props){
@@ -18,7 +17,6 @@ export default class Login extends React.Component{
 
     handleRegistration = (e) => {
         e.preventDefault();
-        console.log(this.state);
         axios({
             method: "post",
             url: "/api/register",
@@ -36,7 +34,7 @@ export default class Login extends React.Component{
                 this.setState({error: res.data.message});
             }
         })
-        .catch(err => console.log(err));
+        .catch(error => console.log(error.res));
     }
 
     render() {
